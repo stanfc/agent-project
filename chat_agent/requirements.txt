@@ -10,9 +10,9 @@ faiss-cpu==1.8.0
 langchain-google-genai==0.0.11
 google-generativeai==0.4.1
 
-torch
-torchaudio
-torchvision
+torch==2.2.2
+torchvision==0.17.2
+torchaudio==2.2.2
 
 tqdm
 numpy==1.24.4
