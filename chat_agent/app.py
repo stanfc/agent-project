@@ -4,7 +4,7 @@ import warnings
 warnings.filterwarnings("ignore")
 agent = load_agent()
 
-print("👋 歡迎使用 PBRT Q&A Agent，輸入你的問題吧！")
+print("👋 歡迎使用 LaTeX Q&A Agent，輸入你的問題吧！")
 
 while True:
     q = input("你問：")
