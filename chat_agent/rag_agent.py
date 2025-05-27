@@ -2,6 +2,8 @@ from langchain.vectorstores import FAISS
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain_community.embeddings import HuggingFaceBgeEmbeddings
 from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain.memory import ConversationBufferMemory
+from langchain.chains import ConversationalRetrievalChain
 from config import *
 from langchain.chains import RetrievalQA
 from sentence_transformers import SentenceTransformer
@@ -23,14 +25,23 @@ def load_agent():
         allow_dangerous_deserialization=True
     )
 
-    retriever = db.as_retriever(
+    '''retriever = db.as_retriever(
         search_type="similarity_score_threshold",
         search_kwargs={
             "score_threshold": 0.8,  # 你要設定的相似度門檻，越高越嚴格（通常 0.5～0.8）
             "k": 10               # 至多取幾個（符合門檻的前 k 個）
         }
+    )'''
+    retriever = db.as_retriever(
+        search_type="mmr",
+        search_kwargs={"k": 15, "fetch_k": 20, "lambda_mult": 0.5}
     )
 
+    
+    memory = ConversationBufferMemory(
+        memory_key="chat_history",
+        return_messages=True
+    )
 
 
     llm = ChatGoogleGenerativeAI(
@@ -39,8 +50,13 @@ def load_agent():
         temperature=0.3,
         convert_system_message_to_human=True
     )
+    
 
-    qa = RetrievalQA.from_chain_type(llm=llm, retriever=retriever, chain_type="refine")
+    qa = ConversationalRetrievalChain.from_llm(
+        llm=llm,
+        retriever=retriever,
+        memory=memory
+    )
     return qa
 
 
