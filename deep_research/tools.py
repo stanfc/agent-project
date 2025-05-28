@@ -1,5 +1,4 @@
 from langchain.agents import initialize_agent, Tool
-from langchain.llms import OpenAI  # 或你用的 Gemini
 from langchain.utilities import WikipediaAPIWrapper, SerpAPIWrapper
 from langchain.tools import DuckDuckGoSearchRun
 
