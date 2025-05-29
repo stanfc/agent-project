@@ -3,7 +3,7 @@ CHUNK_OVERLAP = 50
 
 import os
 
-GOOGLE_API_KEY = "AIzaSyB6zXKjaRILWKm9waP2cfJqNAD9aRFQi4I"
+GOOGLE_API_KEY = "Your gemini api key"
 LLM_MODEL = "gemini-1.5-flash"
 EMBEDDING_MODEL = "Salesforce/codet5-small"
 CHUNK_SIZE = 500
